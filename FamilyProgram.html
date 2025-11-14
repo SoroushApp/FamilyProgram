@@ -1,133 +1,114 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>شجره‌نامه خانواده</title>
-
-  <style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>شجره خانواده</title>
+<style>
     body {
-      font-family: sans-serif;
-      background: #101010;
-      color: #fff;
-      padding: 20px;
-      direction: rtl;
+        font-family: sans-serif;
+        background: #f0f0f0;
+        margin: 0;
+        padding: 20px;
+        text-align: center;
     }
 
-    h1 {
-      text-align: center;
-      margin-bottom: 30px;
-      font-size: 26px;
+    .note {
+        background: #fff3cd;
+        color: #856404;
+        padding: 12px;
+        border-radius: 12px;
+        margin-bottom: 20px;
+        border: 1px solid #ffeeba;
+        font-size: 15px;
     }
 
-    .node {
-      background: #1d1d1d;
-      padding: 12px 18px;
-      border-radius: 10px;
-      border: 1px solid #333;
-      cursor: pointer;
-      width: fit-content;
-      margin: 8px 0;
-      transition: 0.25s;
-      font-size: 18px;
+    .person {
+        width: 90%;
+        max-width: 350px;
+        margin: 10px auto;
+        padding: 15px;
+        font-size: 18px;
+        border: none;
+        border-radius: 12px;
+        color: #fff;
+        cursor: pointer;
+        transition: 0.2s;
     }
 
-    .node:hover {
-      background: #2a2a2a;
-      transform: translateX(-4px);
+    .person:hover {
+        opacity: 0.9;
     }
 
     .children {
-      margin-right: 25px;
-      border-right: 2px solid #333;
-      padding-right: 15px;
-      display: none;
+        display: none;
+        margin-top: 10px;
+        background: #ffffff;
+        border-radius: 10px;
+        padding: 10px;
+        font-size: 16px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
     }
-  </style>
-</head>
 
+    .child {
+        padding: 6px 0;
+        border-bottom: 1px solid #eee;
+    }
+</style>
+</head>
 <body>
 
-  <h1>شجره‌نامه خانواده</h1>
-  <div id="tree"></div>
+<div class="note">
+    برای مشاهده فرزندان هر فرد روی نام او کلیک کنید
+</div>
 
-  <script>
-    const data = {
-      name: "عزیزاله",
-      children: [
-        {
-          name: "کوروش",
-          children: [
-            { name: "محمدحسین" },
-            { name: "علیرضا" }
-          ]
-        },
-        {
-          name: "عباس",
-          children: [
-            { name: "سروش" },
-            { name: "یاسین" }
-          ]
-        },
-        {
-          name: "یوسف",
-          children: [
-            { name: "حسین" },
-            { name: "ابوالفضل" }
-          ]
-        },
-        {
-          name: "ایوب",
-          children: [
-            { name: "محمدجواد" }
-          ]
-        },
-        {
-          name: "یونس",
-          children: [
-            { name: "محمدرضا" },
-            { name: "امیررضا" }
-          ]
-        },
-        {
-          name: "اشکان",
-          children: [
-            { name: "مهدی" },
-            { name: "آریو" }
-          ]
-        }
-      ]
-    };
+<!-- حاج عزیزاله شاکری -->
+<button class="person" style="background:#007bff;" onclick="toggle('p1')">
+    حاج عزیزاله شاکری
+</button>
+<div id="p1" class="children">
+    <button class="person" style="background:#6f42c1;" onclick="toggle('c1')">کوروش شاکری</button>
+    <div id="c1" class="children">
+        <div class="child">محمد حسین شاکری</div>
+        <div class="child">علیرضا شاکری</div>
+    </div>
 
-    function createNode(person) {
-      const wrapper = document.createElement("div");
+    <button class="person" style="background:#28a745;" onclick="toggle('c2')">عباس شاکری</button>
+    <div id="c2" class="children">
+        <div class="child">سروش شاکری</div>
+        <div class="child">یاسین شاکری</div>
+    </div>
 
-      const node = document.createElement("div");
-      node.className = "node";
-      node.textContent = person.name;
-      wrapper.appendChild(node);
+    <button class="person" style="background:#dc3545;" onclick="toggle('c3')">یوسف شاکری</button>
+    <div id="c3" class="children">
+        <div class="child">حسین شاکری</div>
+        <div class="child">ابوالفضل شاکری</div>
+    </div>
 
-      if (person.children && person.children.length > 0) {
-        const childContainer = document.createElement("div");
-        childContainer.className = "children";
+    <button class="person" style="background:#fd7e14;" onclick="toggle('c4')">ایوب شاکری</button>
+    <div id="c4" class="children">
+        <div class="child">محمدجواد شاکری</div>
+    </div>
 
-        person.children.forEach(child => {
-          childContainer.appendChild(createNode(child));
-        });
+    <button class="person" style="background:#20c997;" onclick="toggle('c5')">یونس شاکری</button>
+    <div id="c5" class="children">
+        <div class="child">محمدرضا شاکری</div>
+        <div class="child">امیررضا شاکری</div>
+    </div>
 
-        wrapper.appendChild(childContainer);
+    <button class="person" style="background:#6610f2;" onclick="toggle('c6')">اشکان شاکری</button>
+    <div id="c6" class="children">
+        <div class="child">مهدی شاکری</div>
+        <div class="child">آریو شاکری</div>
+    </div>
+</div>
 
-        node.addEventListener("click", () => {
-          childContainer.style.display =
-            childContainer.style.display === "none" ? "block" : "none";
-        });
-      }
-
-      return wrapper;
-    }
-
-    document.getElementById("tree").appendChild(createNode(data));
-  </script>
+<script>
+function toggle(id) {
+    let box = document.getElementById(id);
+    box.style.display = (box.style.display === "block") ? "none" : "block";
+}
+</script>
 
 </body>
 </html>
