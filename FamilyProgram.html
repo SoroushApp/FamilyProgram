@@ -2,7 +2,7 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>شجره خانواده</title>
 <style>
 body {
@@ -12,130 +12,87 @@ body {
     padding: 20px;
     text-align: center;
 }
-.note {
-    background: #fff3cd;
-    color: #856404;
-    padding: 12px;
-    border-radius: 12px;
-    margin-bottom: 20px;
-    border: 1px solid #ffeeba;
-    font-size: 15px;
-}
-.tree ul {
-    padding-top: 20px; 
-    position: relative;
+
+.tree {
     display: flex;
     justify-content: center;
-    flex-wrap: wrap;
+    align-items: flex-end;
+    flex-direction: column-reverse; /* پدر پایین، فرزندان بالا */
+    margin-top: 50px;
 }
-.tree li {
-    list-style-type: none;
-    text-align: center;
+
+.node {
     position: relative;
-    padding: 20px 5px 0 5px;
-}
-.tree li::before, .tree li::after {
-    content: '';
-    position: absolute; 
-    top: 0; 
-    right: 50%;
-    border-top: 2px solid #333;
-    width: 50%; 
-    height: 20px;
-}
-.tree li::after {
-    right: auto;
-    left: 50%;
-    border-left: 2px solid #333;
-}
-.tree li:only-child::before, .tree li:only-child::after {
-    display: none;
-}
-.tree li .person {
-    border: none;
+    display: inline-block;
     padding: 10px 15px;
-    border-radius: 12px;
+    border-radius: 10px;
     color: #fff;
     cursor: pointer;
-    transition: 0.2s;
-    margin: 0 auto;
-    display: inline-block;
+    margin: 20px 10px;
 }
-.tree li .person:hover {
+
+.node:hover {
     opacity: 0.9;
 }
-.tree li ul {
-    display: none;
-    margin-top: 20px;
+
+/* خطوط اتصال */
+.node::before {
+    content: '';
+    position: absolute;
+    width: 2px;
+    height: 20px;
+    background: #555;
+    left: 50%;
+    bottom: 100%;
 }
-.child-container {
+
+.children {
+    display: none;
     display: flex;
     justify-content: center;
-    flex-wrap: wrap;
+    margin-bottom: 40px;
+}
+
+.line {
+    position: absolute;
+    height: 20px;
+    border-left: 2px solid #555;
+    top: -20px;
+    left: 50%;
 }
 </style>
 </head>
 <body>
 
 <div class="note">
-برای مشاهده فرزندان هر فرد روی نام او کلیک کنید
+    روی هر فرد کلیک کنید تا شاخه‌هایش باز شود
 </div>
 
 <div class="tree">
-<ul>
-    <li>
-        <button class="person" style="background:#007bff;" onclick="toggle('p1')">حاج عزیزاله شاکری</button>
-        <ul id="p1">
-            <li>
-                <button class="person" style="background:#6f42c1;" onclick="toggle('c1')">کوروش شاکری</button>
-                <ul id="c1">
-                    <li><span class="person" style="background:#17a2b8;">محمد حسین شاکری</span></li>
-                    <li><span class="person" style="background:#17a2b8;">علیرضا شاکری</span></li>
-                </ul>
-            </li>
-            <li>
-                <button class="person" style="background:#28a745;" onclick="toggle('c2')">عباس شاکری</button>
-                <ul id="c2">
-                    <li><span class="person" style="background:#20c997;">سروش شاکری</span></li>
-                    <li><span class="person" style="background:#20c997;">یاسین شاکری</span></li>
-                </ul>
-            </li>
-            <li>
-                <button class="person" style="background:#dc3545;" onclick="toggle('c3')">یوسف شاکری</button>
-                <ul id="c3">
-                    <li><span class="person" style="background:#fd7e14;">حسین شاکری</span></li>
-                    <li><span class="person" style="background:#fd7e14;">ابوالفضل شاکری</span></li>
-                </ul>
-            </li>
-            <li>
-                <button class="person" style="background:#fd7e14;" onclick="toggle('c4')">ایوب شاکری</button>
-                <ul id="c4">
-                    <li><span class="person" style="background:#ffc107;">محمدجواد شاکری</span></li>
-                </ul>
-            </li>
-            <li>
-                <button class="person" style="background:#20c997;" onclick="toggle('c5')">یونس شاکری</button>
-                <ul id="c5">
-                    <li><span class="person" style="background:#0dcaf0;">محمدرضا شاکری</span></li>
-                    <li><span class="person" style="background:#0dcaf0;">امیررضا شاکری</span></li>
-                </ul>
-            </li>
-            <li>
-                <button class="person" style="background:#6610f2;" onclick="toggle('c6')">اشکان شاکری</button>
-                <ul id="c6">
-                    <li><span class="person" style="background:#6c757d;">مهدی شاکری</span></li>
-                    <li><span class="person" style="background:#6c757d;">آریو شاکری</span></li>
-                </ul>
-            </li>
-        </ul>
-    </li>
-</ul>
+    <!-- پدر -->
+    <div class="node" style="background:#007bff;" onclick="toggle('p1')">
+        حاج عزیزاله شاکری
+    </div>
+
+    <!-- فرزندان -->
+    <div id="p1" class="children">
+        <div class="node" style="background:#6f42c1;" onclick="toggle('c1')">کوروش شاکری</div>
+        <div class="node" style="background:#28a745;" onclick="toggle('c2')">عباس شاکری</div>
+        <div class="node" style="background:#dc3545;" onclick="toggle('c3')">یوسف شاکری</div>
+        <div class="node" style="background:#fd7e14;" onclick="toggle('c4')">ایوب شاکری</div>
+        <div class="node" style="background:#20c997;" onclick="toggle('c5')">یونس شاکری</div>
+        <div class="node" style="background:#6610f2;" onclick="toggle('c6')">اشکان شاکری</div>
+    </div>
 </div>
 
 <script>
 function toggle(id) {
     let el = document.getElementById(id);
-    el.style.display = (el.style.display === 'block') ? 'none' : 'block';
+    if (el.style.display === "flex") {
+        el.style.display = "none";
+    } else {
+        el.style.display = "flex";
+    }
 }
 </script>
 
