@@ -46,6 +46,7 @@ body {
     gap: 60px;
     position: relative;
     margin-top: 40px;
+    flex-direction: row !important; /* حالت دسکتاپ */
 }
 
 .children {
@@ -55,6 +56,7 @@ body {
     gap: 30px;
     position: relative;
     margin-top: 20px;
+    flex-direction: row !important; /* حالت دسکتاپ */
 }
 
 .child {
@@ -76,12 +78,6 @@ svg {
     z-index: 0;
 }
 
-@media (max-width: 500px) {
-    .siblings, .children {
-        flex-direction: column;
-        gap: 40px;
-    }
-}
 </style>
 </head>
 <body>
@@ -155,8 +151,7 @@ function toggle(id) {
     } else {
         el.style.display = "flex";
     }
-    // رسم خطوط بعد از یک فریم، مخصوص موبایل
-    requestAnimationFrame(drawLines);
+    requestAnimationFrame(drawLines); // رسم خطوط بعد از باز شدن
 }
 
 function drawLines() {
@@ -209,6 +204,15 @@ function drawLines() {
         });
     });
 }
+
+// حالت دسکتاپ خودکار روی موبایل
+window.addEventListener('load', () => {
+    document.querySelector('.siblings').style.flexDirection = 'row';
+    document.querySelectorAll('.children').forEach(c => {
+        c.style.flexDirection = 'row';
+    });
+    requestAnimationFrame(drawLines);
+});
 
 // بروزرسانی خطوط هنگام تغییر اندازه یا scroll
 window.addEventListener('resize', () => requestAnimationFrame(drawLines));
