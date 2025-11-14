@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
@@ -13,7 +13,6 @@ body {
     text-align: center;
 }
 
-/* یادداشت */
 .note {
     background: #fff3cd;
     color: #856404;
@@ -24,7 +23,6 @@ body {
     font-size: 15px;
 }
 
-/* دکمه‌های فرد */
 .node {
     padding: 10px 15px;
     border-radius: 10px;
@@ -41,9 +39,8 @@ body {
     opacity: 0.9;
 }
 
-/* کانتینر برادران */
 .siblings {
-    display: none; /* ابتدا مخفی */
+    display: none;
     justify-content: center;
     flex-wrap: wrap;
     gap: 60px;
@@ -51,7 +48,6 @@ body {
     margin-top: 40px;
 }
 
-/* کانتینر فرزندان */
 .children {
     display: none;
     justify-content: center;
@@ -61,7 +57,6 @@ body {
     margin-top: 20px;
 }
 
-/* فرزندان */
 .child {
     padding: 6px 12px;
     border-radius: 8px;
@@ -72,7 +67,6 @@ body {
     z-index: 1;
 }
 
-/* خطوط SVG */
 svg {
     position: absolute;
     top: 0;
@@ -82,7 +76,6 @@ svg {
     z-index: 0;
 }
 
-/* ریسپانسیو موبایل */
 @media (max-width: 500px) {
     .siblings, .children {
         flex-direction: column;
@@ -97,15 +90,12 @@ svg {
     روی نام هر فرد کلیک کنید تا فرزندانش باز شوند
 </div>
 
-<!-- پدر -->
 <div>
     <button class="node" style="background:#007bff;" onclick="toggle('siblings')">حاج عزیزاله شاکری</button>
 </div>
 
-<!-- کانتینر SVG خطوط -->
 <svg id="lines"></svg>
 
-<!-- برادران -->
 <div id="siblings" class="siblings">
 
     <div class="family">
@@ -165,13 +155,13 @@ function toggle(id) {
     } else {
         el.style.display = "flex";
     }
-    drawLines(); // بروزرسانی خطوط بعد از باز و بسته شدن
+    // رسم خطوط بعد از یک فریم، مخصوص موبایل
+    requestAnimationFrame(drawLines);
 }
 
-// رسم خطوط اتصال
 function drawLines() {
     const svg = document.getElementById('lines');
-    svg.innerHTML = ''; // پاک کردن خطوط قبلی
+    svg.innerHTML = '';
 
     const father = document.querySelector('button.node');
     const fatherRect = father.getBoundingClientRect();
@@ -181,12 +171,11 @@ function drawLines() {
     const families = document.querySelectorAll('.family');
     families.forEach(fam => {
         const childBtn = fam.querySelector('button.node');
-        if (childBtn.offsetParent !== null) { // اگر نمایش داده شود
+        if (childBtn.offsetParent !== null) {
             const childRect = childBtn.getBoundingClientRect();
             const childX = childRect.left + childRect.width / 2 + window.scrollX;
             const childY = childRect.top + window.scrollY;
 
-            // رسم خط از پدر به برادر
             const line = document.createElementNS('http://www.w3.org/2000/svg','line');
             line.setAttribute('x1', fatherX);
             line.setAttribute('y1', fatherY);
@@ -197,7 +186,6 @@ function drawLines() {
             svg.appendChild(line);
         }
 
-        // خطوط فرزندان
         const children = fam.querySelectorAll('.child');
         children.forEach(grand => {
             if (grand.offsetParent !== null) {
@@ -222,9 +210,9 @@ function drawLines() {
     });
 }
 
-// بروزرسانی خطوط هنگام تغییر اندازه پنجره
-window.addEventListener('resize', drawLines);
-window.addEventListener('scroll', drawLines);
+// بروزرسانی خطوط هنگام تغییر اندازه یا scroll
+window.addEventListener('resize', () => requestAnimationFrame(drawLines));
+window.addEventListener('scroll', () => requestAnimationFrame(drawLines));
 </script>
 
 </body>
